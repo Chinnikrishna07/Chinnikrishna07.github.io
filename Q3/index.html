@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jigsaw Puzzle Maker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Jigsaw Puzzle Maker</h1>
+
+    <div id="setup">
+        <input type="file" id="image-input" accept="image/*">
+        <select id="difficulty-select">
+            <option value="5">Easy (5 Pieces)</option>
+            <option value="20">Medium (20 Pieces)</option>
+            <option value="40">Hard (40 Pieces)</option>
+            <option value="80">Very Hard (80 Pieces)</option>
+            <option value="100">Expert (100 Pieces)</option>
+        </select>
+        <button id="start-button">Start Puzzle</button>
+    </div>
+
+    <div id="game-area">
+        <div id="puzzle-container">
+            </div>
+        <div id="pieces-container">
+            </div>
+    </div>
+
+    <div id="win-message" class="hidden">
+        <h2>Congratulations, You Solved It!</h2>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
