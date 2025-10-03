@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const pieceCount = parseInt(difficultySelect.value);
-        // Determine grid size based on difficulty
         const gridSizes = { 5: { r: 1, c: 5 }, 20: { r: 4, c: 5 }, 40: { r: 5, c: 8 }, 80: { r: 8, c: 10 }, 100: { r: 10, c: 10 }};
         rows = gridSizes[pieceCount].r;
         cols = gridSizes[pieceCount].c;
@@ -40,11 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear previous puzzle state
         puzzleContainer.innerHTML = '';
         piecesContainer.innerHTML = '';
-        winMessage.classList.add('hidden');
+        winMessage.classList.add('hidden'); // Ensures win message is hidden
         pieces = [];
 
         // Set image and piece dimensions
-        const imgWidth = 500; // Fixed width for puzzle board
+        const imgWidth = 500;
         const imgHeight = (img.height / img.width) * imgWidth;
         puzzleContainer.style.width = `${imgWidth}px`;
         puzzleContainer.style.height = `${imgHeight}px`;
@@ -60,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create puzzle pieces and slots
         for (let i = 0; i < r; i++) {
             for (let j = 0; j < c; j++) {
-                // Create the piece
                 const piece = document.createElement('div');
                 const pieceId = `piece-${i}-${j}`;
                 piece.id = pieceId;
@@ -74,13 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 piece.dataset.id = pieceId;
                 pieces.push(piece);
 
-                // Create the corresponding slot on the board
                 const slot = document.createElement('div');
                 slot.classList.add('puzzle-slot');
                 slot.dataset.id = pieceId;
                 puzzleContainer.appendChild(slot);
 
-                // Add Drag and Drop listeners for slots
                 slot.addEventListener('dragover', (e) => e.preventDefault());
                 slot.addEventListener('drop', onDrop);
             }
@@ -104,20 +100,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const pieceId = event.dataTransfer.getData('text/plain');
         const draggedPiece = document.getElementById(pieceId);
         const dropZone = event.target;
+        
+        // Make sure draggedPiece exists before trying to access it
+        if (!draggedPiece) return;
 
-        // Check if the drop is correct
+        draggedPiece.classList.remove('dragging');
+
         if (dropZone.classList.contains('puzzle-slot') && dropZone.dataset.id === draggedPiece.dataset.id) {
             dropZone.appendChild(draggedPiece);
             draggedPiece.draggable = false;
-            draggedPiece.classList.remove('dragging');
             checkWinCondition();
-        } else {
-             draggedPiece.classList.remove('dragging');
         }
     }
 
     function checkWinCondition() {
-        // If the pieces container is empty, all pieces are placed correctly.
         if (piecesContainer.children.length === 0) {
             winMessage.classList.remove('hidden');
         }
