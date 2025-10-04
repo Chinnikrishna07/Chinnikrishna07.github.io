@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoplight Game - Nash Equilibrium</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Stoplight Game: Nash Equilibrium</h1>
+    <p>A simple game to illustrate Nash Equilibrium at a traffic intersection.</p>
+    <hr>
+
+    <div class="game-container">
+        <div class="player-section">
+            <h2>Player (You)</h2>
+            <div class="choices">
+                <button id="player-go">Go</button>
+                <button id="player-stop">Stop</button>
+            </div>
+        </div>
+
+        <div class="computer-section">
+            <h2>Computer</h2>
+            <p id="computer-choice">Computer's choice: <span class="choice-display">-</span></p>
+        </div>
+    </div>
+    <hr>
+
+    <div class="results-section">
+        <h2>Outcome</h2>
+        <p id="game-result">Make your choice to see the outcome.</p>
+        <p id="player-payoff">Your Payoff: <span class="payoff-display">-</span></p>
+        <p id="computer-payoff">Computer's Payoff: <span class="payoff-display">-</span></p>
+    </div>
+    <hr>
+
+    <div class="explanation-section">
+        <h2>Nash Equilibrium Explained (in this game)</h2>
+        <p>In this "Traffic Lights" game, there are two Nash Equilibria:</p>
+        <ul>
+            <li>**You Go, Computer Stops (Payoff: You 4, Computer -1)**</li>
+            <li>**You Stop, Computer Goes (Payoff: You -1, Computer 4)**</li>
+        </ul>
+        <p>These are situations where neither player has an incentive to change their strategy, given the other player's choice. For example, if you choose 'Go' and the Computer chose 'Stop', you wouldn't want to change to 'Stop' (which would give you -3) because 'Go' (giving you 4) is better. Similarly, the Computer wouldn't want to change from 'Stop' (giving them -1) to 'Go' (giving them -10).</p>
+        <p>The traffic lights essentially enforce one of these equilibria randomly, preventing the worst outcomes (like both players 'Go').</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

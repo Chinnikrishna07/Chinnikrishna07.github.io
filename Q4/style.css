@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif; /* Sets a common font */
+    background-color: #f4f4f4; /* Light gray background */
+    color: #333; /* Dark gray text */
+    text-align: center; /* Centers all text content */
+    margin: 0; /* Removes default body margin */
+    padding: 20px; /* Adds padding around the content */
+}
+
+h1, h2 {
+    color: #2c3e50; /* Darker heading color */
+}
+
+.game-container, .results-section, .explanation-section {
+    background-color: #fff; /* White background for sections */
+    margin: 20px auto; /* Centers sections horizontally with margin */
+    padding: 25px; /* Padding inside sections */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 700px; /* Maximum width for readability */
+}
+
+.player-section, .computer-section {
+    margin-bottom: 20px; /* Space between player and computer sections */
+}
+
+.choices button {
+    padding: 12px 25px; /* Padding for buttons */
+    margin: 0 10px; /* Margin around buttons */
+    font-size: 16px; /* Font size for button text */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    border: none; /* Removes button border */
+    border-radius: 5px; /* Rounded button corners */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+#player-go {
+    background-color: #28a745; /* Green background for 'Go' button */
+    color: white; /* White text for 'Go' button */
+}
+
+#player-go:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+#player-stop {
+    background-color: #dc3545; /* Red background for 'Stop' button */
+    color: white; /* White text for 'Stop' button */
+}
+
+#player-stop:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+.choice-display, .payoff-display {
+    font-weight: bold; /* Makes displayed choices and payoffs bold */
+    color: #007bff; /* Blue color for important text */
+}
+
+ul {
+    list-style-type: none; /* Removes bullet points from list */
+    padding: 0; /* Removes default padding */
+}
+
+ul li {
+    background-color: #e2f0fb; /* Light blue background for list items */
+    margin-bottom: 5px; /* Space between list items */
+    padding: 8px; /* Padding inside list items */
+    border-left: 5px solid #007bff; /* Blue left border for emphasis */
+}
