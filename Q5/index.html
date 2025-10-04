@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Dictionary Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Data Dictionary Generator 📖</h1>
+        
+        <div class="instructions">
+            <h2>How to Use This Tool</h2>
+            [cite_start]<p>This tool generates a data dictionary and a table relationship diagram from a JSON input that defines your database schema[cite: 24, 25].</p>
+            
+            <h3>Step 1: Generate the Input JSON from Your Database</h3>
+            <p>You need to query your database's metadata to get the table and column information. Here are example queries for popular databases:</p>
+            
+            <details>
+                <summary><strong>PostgreSQL Query</strong></summary>
+                <pre><code>
+SELECT json_build_object(
+  'tables', (SELECT json_agg(...) FROM ...), 
+  'relationships', (SELECT json_agg(...) FROM ...)
+);
+                </code></pre>
+                <p>A full query for PostgreSQL is complex. It's often easier to use a script (Python, Node.js) with a database driver to inspect the schema and build the JSON.</p>
+            </details>
+
+            <details>
+                <summary><strong>MySQL Query</strong></summary>
+                <pre><code>
+-- For tables and columns:
+SELECT table_name, column_name, data_type, is_nullable, column_key, extra 
+FROM information_schema.columns 
+WHERE table_schema = 'your_database_name';
+
+-- For relationships:
+SELECT table_name, referenced_table_name, constraint_name 
+FROM information_schema.referential_constraints 
+WHERE constraint_schema = 'your_database_name';
+                </code></pre>
+                <p>You'll need to run these queries and manually format the results into the required JSON structure below.</p>
+            </details>
+
+            <h3>Step 2: Format the JSON</h3>
+            <p>The JSON must have a `tables` array and a `relationships` array. Paste the example below into the text box to see how it works.</p>
+        </div>
+
+        <div class="input-area">
+            <h3>Paste Your Schema (JSON format)</h3>
+            <textarea id="schema-input" rows="20" placeholder="Paste your database schema in JSON format here..."></textarea>
+            <button id="generate-btn">Generate Dictionary</button>
+        </div>
+        
+        <div id="actions" class="hidden">
+            <button id="download-pdf-btn">Download as PDF</button>
+        </div>
+
+        <div id="output-area">
+            <div id="er-diagram-container"></div>
+            <div id="glossary-container"></div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

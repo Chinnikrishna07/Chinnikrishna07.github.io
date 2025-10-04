@@ -1,0 +1,129 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+    color: #343a40;
+    margin: 0;
+}
+
+.container {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+h1, h2, h3 {
+    color: #212529;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 10px;
+}
+
+.instructions {
+    background-color: #e9ecef;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+details {
+    margin-top: 10px;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+pre {
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+#schema-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#actions {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+#output-area {
+    margin-top: 30px;
+    border-top: 2px solid #007bff;
+    padding-top: 20px;
+}
+
+#er-diagram-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.table-glossary {
+    margin-bottom: 30px;
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.table-glossary th, .table-glossary td {
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    text-align: left;
+}
+
+.table-glossary th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+/* Print-friendly styles */
+@media print {
+    body {
+        box-shadow: none;
+        margin: 0;
+    }
+    .container {
+        max-width: 100%;
+        box-shadow: none;
+        border: none;
+    }
+    .instructions, .input-area, #actions {
+        display: none;
+    }
+}
