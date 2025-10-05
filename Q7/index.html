@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Bowling Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="ui">
+            <div class="scoreboard" id="scoreboard"></div>
+            
+            <div class="controls">
+                <div class="slider-control">
+                    <label for="powerSlider">Power: <span id="powerValue">50</span>%</label>
+                    <input type="range" id="powerSlider" min="0" max="100" value="50" class="slider">
+                </div>
+                
+                <div class="slider-control">
+                    <label for="angleSlider">Angle: <span id="angleValue">0</span>°</label>
+                    <input type="range" id="angleSlider" min="-30" max="30" value="0" class="slider">
+                </div>
+                
+                <div>
+                    <button id="rollBtn" onclick="rollBall()">🎳 Roll Ball</button>
+                    <button onclick="newGame()">🔄 New Game</button>
+                    <button onclick="changeCamera()">📷 Change View</button>
+                </div>
+            </div>
+            
+            <div class="info">
+                <span>Frame: <strong id="currentFrame">1</strong></span>
+                <span>Roll: <strong id="currentRoll">1</strong></span>
+                <span>Total Score: <strong id="totalScore">0</strong></span>
+                <span>Pins Down: <strong id="pinsDown">0</strong></span>
+            </div>
+        </div>
+        
+        <div id="pins">
+            <div>Pins Standing</div>
+            <div class="pin-display">
+                <div></div><div class="pin" id="pin-7">7</div><div class="pin" id="pin-8">8</div><div class="pin" id="pin-9">9</div>
+                <div class="pin" id="pin-4">4</div><div class="pin" id="pin-5">5</div><div class="pin" id="pin-6">6</div><div class="pin" id="pin-10">10</div>
+                <div></div><div class="pin" id="pin-2">2</div><div class="pin" id="pin-3">3</div><div></div>
+                <div></div><div></div><div class="pin" id="pin-1">1</div><div></div>
+            </div>
+        </div>
+        
+        <div class="message" id="message"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

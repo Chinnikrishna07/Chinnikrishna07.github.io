@@ -1,11 +1,4 @@
-/**
- * -------------------------------------------------------------------------
- * Event Tracker for SSD Assignment
- * Captures page views and all click events and logs them to the console.
- * -------------------------------------------------------------------------
- */
 
-// A self-invoking function to avoid polluting the global namespace.
 (function() {
 
     /**
