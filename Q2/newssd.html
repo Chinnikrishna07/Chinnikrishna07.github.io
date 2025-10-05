@@ -1,43 +1,608 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ugly SSD Course Page</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CS6.302 SSD Monsoon 2025</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #8b5cf6;
+      --accent: #ec4899;
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --bg-hover: #334155;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border: #334155;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.light-mode {
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --secondary: #7c3aed;
+      --accent: #db2777;
+      --bg-dark: #ffffff;
+      --bg-card: #f8fafc;
+      --bg-hover: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --border: #e2e8f0;
+      --success: #059669;
+      --warning: #d97706;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    body.light-mode .theme-toggle {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-mode .theme-toggle:hover {
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .theme-icon {
+      font-size: 1.5rem;
+      transition: transform 0.5s ease;
+    }
+
+    .theme-toggle:hover .theme-icon {
+      transform: rotate(20deg);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 24px;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(236, 72, 153, 0.2) 0%, transparent 50%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    header h3 {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 500;
+      opacity: 0.95;
+      position: relative;
+      z-index: 1;
+      margin: 0.5rem 0;
+    }
+
+    nav {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1s ease-out 0.3s both;
+    }
+
+    nav a {
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    nav a:hover::before {
+      left: 100%;
+    }
+
+    nav a:hover {
+      background: var(--bg-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    section {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      animation: fadeInUp 0.8s ease-out both;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    section:nth-child(2) { animation-delay: 0.1s; }
+    section:nth-child(3) { animation-delay: 0.2s; }
+    section:nth-child(4) { animation-delay: 0.3s; }
+    section:nth-child(5) { animation-delay: 0.4s; }
+    section:nth-child(6) { animation-delay: 0.5s; }
+
+    h2 {
+      color: var(--primary);
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 3px solid var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    h2::before {
+      content: '';
+      width: 8px;
+      height: 40px;
+      background: linear-gradient(180deg, var(--primary), var(--secondary));
+      border-radius: 4px;
+    }
+
+    p, li {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+
+    b {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    ul {
+      padding-left: 2rem;
+      list-style-type: none;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    ul li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 1.5rem;
+      line-height: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 1.5rem;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    th {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-dark);
+      color: var(--text-secondary);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body.light-mode td {
+      color: var(--text-primary);
+    }
+
+    tr:hover td {
+      background: var(--bg-hover);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .light-text-row td {
+      color: #64748b !important;
+      background: rgba(15, 23, 42, 0.5) !important;
+    }
+
+    body.light-mode .light-text-row td {
+      color: #475569 !important;
+      background: rgba(241, 245, 249, 0.8) !important;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    a:hover {
+      color: var(--secondary);
+    }
+
+    table a {
+      padding: 0.4rem 0.8rem;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 6px;
+      margin: 0 0.25rem;
+      display: inline-block;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+
+    table a:hover {
+      background: rgba(99, 102, 241, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .grading-table {
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+
+    s {
+      color: #475569;
+      opacity: 0.6;
+    }
+
+    #txt {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      margin-top: 2rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      section {
+        padding: 1.5rem;
+      }
+
+      table {
+        font-size: 0.9rem;
+      }
+
+      th, td {
+        padding: 0.75rem 0.5rem;
+      }
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 2rem 0;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="theme-icon">🌙</span>
+      <span class="theme-text">Dark Mode</span>
+    </button>
 
-    <header>
-        <h1>CS6.302-Software System Development</h1>
-        <button id="theme-toggle">Toggle Dark Mode</button>
+    <header id="home">
+      <h1>CS6.302 - Software System Development</h1>
+      <h3>Software Engineering Research Center, IIIT Hyderabad</h3>
+      <h3>Monsoon 2025</h3>
     </header>
 
-    <div class="container">
-        <div class="section">
-            <h2>About The Course</h2>
-            <p>This course covers the fundamentals of software system development, including HTML, CSS, JavaScript, and more.</p>
-        </div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#lecture">Lecture/Lab/Office Hours</a>
+      <a href="#cpolicy">Course Policy</a>
+      <a href="#schedule">Lectures</a>
+      <a href="#lab">Lab</a>
+      <a href="#activity">Exams</a>
+      <a href="#staff">Staff</a>
+    </nav>
 
-        <div class="section">
-            <h2>Syllabus</h2>
-            <ul>
-                <li>Week 1: Introduction to HTML</li>
-                <li>Week 2: Styling with CSS</li>
-                <li>Week 3: JavaScript Basics</li>
-                <li>Week 4: Advanced Topics</li>
-            </ul>
-        </div>
+    <section id="about">
+      <h2>About</h2>
+      <p>Software System Development is a graduate-level course that equips students with a comprehensive understanding of the principles, tools, and practices involved in designing and building modern software systems. Emphasizing a systems-oriented perspective, the course explores foundational and contemporary topics including Operating Systems, Computer Networks, Software Engineering methodologies, and Database Systems (both relational and NoSQL).</p>
+      <p>Students will gain practical experience with industry-relevant tools and technologies such as Bash scripting, SQL, NoSQL databases, HTML, CSS, JavaScript, front-end frameworks, RESTful APIs, Python, and Flask. The course focuses on building scalable, maintainable, and secure software systems while fostering an appreciation for system integration, version control, development workflows, and deployment strategies.</p>
+      <p>Designed for students with a fundamental background in programming, this course bridges theory and practice, preparing them to contribute effectively to complex software development projects in both research and industry settings.</p>
+    </section>
 
-        <div class="section">
-            <h2>Resources</h2>
-            <p>Important links for the course:</p>
-            <a href="#">Course Materials</a><br>
-            <a href="#">Assignment Portal</a>
-        </div>
-    </div>
+    <section id="lecture">
+      <h2>Lecture/Lab Hours</h2>
+      <p>The lectures will be in-person and will be conducted by the Instructor. The lab sessions will be in-person and will be conducted by the Teaching Assistants. The lecture material (slides, lecture notes, supplemental material) can be accessed from this website. The lecture and lab hours are mentioned below:</p>
+      <ul>
+        <li>Lecture 🏛️: 8:30 AM to 9:55 AM – Tuesdays and Fridays – Lecture Hall: H-205 – 29 Classes</li>
+        <li>Lab/Tutorial 💻: 2:00 PM to 3:00 PM @ SH1 & 2:00 PM to 5:00 PM – Friday – Lecture Hall: SH1 – 14 Sessions</li>
+      </ul>
+      <p><b>Office Hours:</b> There are no specific instructor office hours. The instructor is available to meet all the students for 15 minutes before every class to address any queries or concerns. You can also directly write to the instructor at <a href="mailto:saianirudh.karre@iiit.ac.in">saianirudh.karre@iiit.ac.in</a> to get your queries addressed. TA office hours can be found <a href="#staff">here</a>.</p>
+    </section>
 
-    <script src="script.js"></script>
-    <script src="../Q6/event_tracker.js"></script>
+    <section id="cpolicy">
+      <h2>Course Policy</h2>
+      <ul>
+        <li><b>Teaching and Learning Methodology:</b> This course is designed to help learners grasp principles behind good software system development by working on real-life problems, promoting deeper engagement and understanding. Overall course notes can be found <a href="https://tinted-rumba-8c6.notion.site/CS6-302-Software-System-Development-670da706e9514d7f9d5b1bcf3c6a1005" target="_blank">here</a>.</li>
+        <li><b>Academic Honesty:</b> If A helps B in a task, B doesn't learn the skill to do it. Any cheating or plagiarism results in a zero on that deliverable; egregious cases result in an F for the course.</li>
+        <li><b>Zero Tolerance on Plagiarism:</b> Any form of cheating or plagiarism will result in 0 for the project, assignment, or exam; severe cases will result in F for the course.</li>
+        <li><b>Absentee Policy:</b> Attendance and participation are mandatory. Missed quizzes or activities earn a 0. No make-ups are offered.</li>
+        <li><b>Miscellaneous Instructions:</b> Students must bring a laptop with a decent configuration. Active participation is expected in lectures and labs.</li>
+        <li><b>Use of AI Tools:</b> AI tools (ChatGPT, Copilot, etc.) are allowed but must be acknowledged in submissions. Verify outputs carefully.</li>
+        <li><b>Submission Deadlines:</b> NO extensions. Submit on time or work with the Academic Office for exemptions.</li>
+        <li><b>Grading Policy:</b> Re-evaluation requests accepted up to one week after grades are posted. No make-ups without Academic Office approval.</li>
+      </ul>
+      <h3 style="color: var(--text-primary); margin-top: 2rem; margin-bottom: 1rem; text-align: center;">Grading Distribution</h3>
+      <table class="grading-table">
+        <tr><th>Deliverables</th><th>Weightage</th></tr>
+        <tr><td>Assignment (4)</td><td>15%</td></tr>
+        <tr><td>Lab Activities (14)</td><td>15%</td></tr>
+        <tr><td>Practice & Class Activity (5)</td><td>10%</td></tr>
+        <tr><td>QUIZ (2)</td><td>10%</td></tr>
+        <tr><td>MID (Team Hackathon)</td><td>10%</td></tr>
+        <tr><td>Final Exam (Team Project)</td><td>40%</td></tr>
+      </table>
+    </section>
+
+    <section id="schedule">
+      <h2>Lecture Schedule & Content</h2>
+      <table>
+        <tr><th>S.No</th><th>Schedule</th><th>Lecture Content</th><th>Material</th></tr>
+        <tr class="light-text-row">
+          <td>1</td><td>01-Aug-25 (Friday)</td><td>Course Intro – Software Systems</td>
+          <td>[<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/SSD_Monsoon2025.pdf" target="_blank">Slides</a>][<a href="https://tinted-rumba-8c6.notion.site/Software-System-2456a6248bf68034bc14cfc44dc93062" target="_blank">Notes</a>]</td>
+        </tr>
+        <tr class="light-text-row">
+          <td>2</td><td>05-Aug-25 (Tuesday)</td><td>Relational Data</td>
+          <td>[<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/data.pdf" target="_blank">Slides</a>][<a href="https://tinted-rumba-8c6.notion.site/Structured-Databases-2456a6248bf6805f83e1cbf0a58761ec" target="_blank">Notes</a>]</td>
+        </tr>
+        <tr class="light-text-row">
+          <td>3</td><td>08-Aug-25 (Friday)</td><td>Unstructured Data – Session 1</td>
+          <td>[<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/NoSQLClass.pdf" target="_blank">Slides</a>][<a href="https://tinted-rumba-8c6.notion.site/Unstructured-Databases-24b6a6248bf680679b36e76c33d301c4" target="_blank">Notes</a>]</td>
+        </tr>
+        <tr class="light-text-row">
+          <td>4</td><td>12-Aug-25 (Tuesday)</td><td><s>Unstructured Data – Session 2</s><br>[Cancelled – Rain ⛈️]</td>
+          <td>[<a href="https://tinted-rumba-8c6.notion.site/Unstructured-Databases-24b6a6248bf680679b36e76c33d301c4" target="_blank">Notes</a>][<a href="https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/ISS_Spring_2025/mongo.txt" target="_blank">Scripts</a>]</td>
+        </tr>
+        <tr class="light-text-row">
+          <td>5</td><td>19-Aug-25 (Tuesday)</td><td>Unstructured Data – Session 2</td>
+          <td>[<a href="https://tinted-rumba-8c6.notion.site/Worked-out-Examples-2546a6248bf68073a460cbfc52825dfd" target="_blank">Practice</a>][<a href="https://tinted-rumba-8c6.notion.site/Some-Concepts-2546a6248bf6806fafd0d8260507fc03?pvs=73" target="_blank">Notes</a>]</td>
+        </tr>
+        <tr class="light-text-row">
+          <td>6</td><td>22-Aug-25 (Friday)</td><td>Web – HTML</td>
+          <td>[<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/Web.pdf" target="_blank">Web-Slides</a>][<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/HTML.pdf" target="_blank">HTML-Slides</a>]<br>[<a href="https://tinted-rumba-8c6.notion.site/Web-Technology-2566a6248bf6800488d0c13a992502e4?pvs=143" target="_blank">Notes</a>][<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/html_super_demo_single_file_html.html" target="_blank">Scripts</a>]</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="lab">
+      <h2>Lab Schedule & Content</h2>
+      <table>
+        <tr><th>Lab No.</th><th>Schedule</th><th>Topic</th><th>Notes</th></tr>
+        <tr class="light-text-row">
+          <td>01</td><td>07-Aug-2025 (Friday)</td><td>Git Session</td>
+          <td>[<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/Labs/Lab01/SSD%20Tutorial%20%20-%20GIT.pdf" target="_blank">Slides</a>][<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/Labs/Lab01/SSD_GIT_LAB.pdf" target="_blank">Activity</a>]</td>
+        </tr>
+        <tr class="light-text-row">
+          <td>02</td><td>14-Aug-2025 (Thursday) @ 2 PM–3 PM</td><td>SQL Session</td>
+          <td>[<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/Labs/Lab01/Lab-2.pdf" target="_blank">Slides</a>][<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/Labs/Lab01/Activity%20-%20Lab%202.pdf" target="_blank">Activity</a>]</td>
+        </tr>
+        <tr class="light-text-row">
+          <td>03</td><td>21-Aug-2025 (Thursday) @ 2 PM–3 PM</td><td>NoSQL Session</td>
+          <td>[<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/Labs/Lab01/NoSQL%20Lab3.pdf" target="_blank">Slides</a>][<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/Labs/Lab01/Activity_lab3.pdf" target="_blank">Activity</a>][<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/Labs/Lab01/NoSQL_Illustration.pdf" target="_blank">Example</a>]</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="activity">
+      <h2>Exams & Assignments</h2>
+      <table>
+        <tr><th>S.No</th><th>Exam Type</th><th>Announcement</th><th>Submission Due</th><th>Material</th></tr>
+        <tr class="light-text-row">
+          <td>1</td><td>Assignment – SQL, NoSQL</td><td>15-Aug-2025</td><td>05-Sept-2025</td><td>[<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/Assignment_1.pdf" target="_blank">Paper</a>]</td>
+        </tr>
+        <tr>
+          <td>2</td><td>Assignment – Web</td><td>06-Sept-2025</td><td>05-Oct-2025</td><td>[<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/sai11101989/sai11101989.github.io/main/Course/SSD_Monsoon2025/Assignment_2.pdf" target="_blank">Paper</a>]</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="staff">
+      <h2>Staff</h2>
+      <p><b>Instructors:</b> <a href="https://sites.google.com/view/abhishek-singh/home" target="_blank">Dr. Abhishek Singh</a>, <a href="https://sai11101989.github.io" target="_blank">Dr. Sai Anirudh Karre</a></p>
+      <p><b>Teaching Assistants:</b> Chirag Dhamija, Tejas Cavale, Divyansh Pandey, Aaditya Vardhan Narain, Kunal Kamalkishire Bhosikar, Chandrasekar S, Ashwani Raj, Hiya Bhatt</p>
+    </section>
+
+    <div id="txt"></div>
+  </div>
+
+  <script>
+    function startTime() {
+      const today = new Date();
+      document.getElementById('txt').innerHTML = today.toLocaleString('en-US', {
+        dateStyle: 'full',
+        timeStyle: 'medium'
+      });
+      setTimeout(startTime, 1000);
+    }
+    startTime();
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('.theme-icon');
+    const themeText = themeToggle.querySelector('.theme-text');
+    const body = document.body;
+
+    // Check for saved theme preference or default to dark
+    const currentTheme = sessionStorage.getItem('theme') || 'dark';
+    if (currentTheme === 'light') {
+      body.classList.add('light-mode');
+      themeIcon.textContent = '☀️';
+      themeText.textContent = 'Light Mode';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('light-mode');
+      
+      if (body.classList.contains('light-mode')) {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Light Mode';
+        sessionStorage.setItem('theme', 'light');
+      } else {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Dark Mode';
+        sessionStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+  <script src="../Q6/event_tracker.js"></script>
 </body>
 </html>
